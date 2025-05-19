@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python Programming - Code with Ankit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; padding: 20px; background: #f9f9f9; }
+    h1 { text-align: center; color: #0d47a1; }
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-top: 20px; }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .btn { background: #fbc02d; border: none; padding: 10px 20px; margin: 20px auto; display: block; font-weight: bold; cursor: pointer; border-radius: 5px; }
+    .quiz, .notes, .cert { max-width: 600px; margin: auto; margin-top: 30px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ccc; }
+  </style>
+</head>
+<body>
+  <h1>Python Programming</h1>
+  <div class="video-container">
+    <iframe src="https://www.youtube.com/embed/l7S10VuLGdk" frameborder="0" allowfullscreen></iframe>
+  </div>
+
+  <div class="notes">
+    <h3>Download Notes</h3>
+    <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" class="btn" download>Download PDF</a>
+  </div>
+
+  <div class="quiz">
+    <h3>Mini Quiz</h3>
+    <p>Q1: Which keyword is used in C to define a function?</p>
+    <input type="radio" name="q1"> int<br>
+    <input type="radio" name="q1"> define<br>
+  </div>
+
+  <div class="cert">
+    <h3>Get Certificate</h3>
+    <input type="text" id="name" placeholder="Your Name" />
+    <button class="btn" onclick="downloadCert()">Download Certificate</button>
+  </div>
+
+  <a href="index.html" class="btn">Back to Home</a>
+
+  <script>
+    function downloadCert() {
+      const name = document.getElementById("name").value;
+      if (!name) return alert("Enter your name");
+      const text = `Certificate of Completion\n\nThis certifies that\n\n${name}\n\nhas completed the Python Programming course.`;
+      const blob = new Blob([text], { type: 'application/pdf' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = "Certificate.pdf";
+      link.click();
+    }
+  </script>
+</body>
+</html>

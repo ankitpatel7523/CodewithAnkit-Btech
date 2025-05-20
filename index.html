@@ -10,7 +10,7 @@
 <title>Code with Ankit</title>
 <link href="https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg" rel="icon" type="image/svg+xml"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
     body { background: #f9f9f9; color: #222; }
@@ -43,16 +43,8 @@
     .social-icons a { color: white; margin: 0 10px; font-size: 1.4rem; text-decoration: none; }
     .hidden { display: none; }
   </style>
-</link>
-<style>
-.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
-</style>
-
 </head>
-<body><header><img alt="Code with Ankit" src="logo.png" style="height: 60px; vertical-align: middle;"/></header>
+<body><header><img alt="Code with Ankit" src="logo.png" style="width: 100%; height: auto; display: block;"/></header>
 <header id="home">
 <h1>Code with Ankit</h1>
 <p>Learn to Code in Hindi + English | B.Tech &amp; BCA Focused</p>
@@ -105,24 +97,24 @@
 <section id="certificate">
 <h2>Generate Your Certificate</h2>
 <div style="text-align:center;">
-<input id="certName" placeholder="Enter your name" type="text">
+<input id="certName" placeholder="Enter your name" type="text"/>
 <button class="cert-btn" onclick="generateCertificate()">Download Certificate</button>
-</input></div>
+</div>
 </section>
 <section id="profile">
 <h2>User Profile</h2>
 <div class="form-container" id="login-box">
-<input id="loginName" placeholder="Enter your name or email" required="" type="text">
+<input id="loginName" placeholder="Enter your name or email" required="" type="text"/>
 <button onclick="loginUser()">Login</button>
-</input></div>
+</div>
 <div class="form-container hidden" id="profile-box">
 <h3>Welcome, <span id="userNameDisplay"></span></h3>
 <button class="logout-btn" onclick="logoutUser()">Logout</button>
 <form id="profileForm">
-<input id="fullName" placeholder="Full Name" required="" type="text">
-<input id="fatherName" placeholder="Father's Name" required="" type="text">
-<input id="course" placeholder="Course" required="" type="text"/>
-<input id="phone" placeholder="Phone Number" required="" type="tel"/>
+<input id="fullName" placeholder="Full Name" required="" type="text"/>
+<input id="fatherName" placeholder="Father's Name" required="" type="text"/>
+<input id="course" placeholder="Course" required="" type="text">
+<input id="phone" placeholder="Phone Number" required="" type="tel">
 <input id="email" placeholder="Gmail ID" required="" type="email"/>
 <label>Upload Profile Image:</label>
 <input accept="image/*" id="profileImg" type="file"/>
@@ -239,25 +231,5 @@ has successfully completed the Code with Ankit course.`;
     }
   };
 </script>
-
-<section id="blog">
-  <h2>Latest Articles</h2>
-  <article>
-    <h3>How to Start with Python</h3>
-    <p>Python is an easy-to-learn programming language used in web development, data science, and more.</p>
-  </article>
-  <article>
-    <h3>Understanding HTML and CSS</h3>
-    <p>HTML structures the content while CSS styles it. Together they make the web beautiful.</p>
-  </article>
-</section>
-
-<button onclick="toggleDarkMode()" style="position:fixed;top:10px;right:10px;z-index:1000;">Toggle Dark Mode</button>
-<script>
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-}
-</script>
-
 </body>
 </html>

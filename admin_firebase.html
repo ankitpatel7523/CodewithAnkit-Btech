@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin - Paid Classes</title>
+</head>
+<body>
+  <h2>Login to Admin Panel</h2>
+  <input type="email" id="email" placeholder="Email" />
+  <input type="password" id="password" placeholder="Password" />
+  <button onclick="login()">Login</button>
+
+  <div id="formSection" style="display:none;">
+    <h3>Add Paid Class</h3>
+    <input type="text" id="title" placeholder="Class Title" /><br/>
+    <input type="text" id="thumbnail" placeholder="Thumbnail URL" /><br/>
+    <textarea id="description" placeholder="Description"></textarea><br/>
+    <input type="text" id="link" placeholder="Video/Buy Link" /><br/>
+    <button onclick="submitClass()">Submit</button>
+  </div>
+
+  
+<script type="module">
+  // Import the functions you need from the SDKs
+  import {{ initializeApp }} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+  import {{ getFirestore, collection, addDoc, getDocs }} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+  import {{ getAuth, signInWithEmailAndPassword, onAuthStateChanged }} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+
+  const firebaseConfig = {{
+    apiKey: "AIzaSyC49D5FuxFq68zaFmyamB5DgfnJveivIXk",
+    authDomain: "success-with-ankit-swa.firebaseapp.com",
+    projectId: "success-with-ankit-swa",
+    storageBucket: "success-with-ankit-swa.firebasestorage.app",
+    messagingSenderId: "83676685789",
+    appId: "1:83676685789:web:5bb35ae71531dbb986c234",
+    measurementId: "G-M8YKVQP1Z3"
+  }};
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+</script>
+
+
+  <script type="module">
+    async function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Login successful");
+        document.getElementById("formSection").style.display = "block";
+      } catch (error) {
+        alert("Login failed: " + error.message);
+      }
+    }
+
+    async function submitClass() {
+      const title = document.getElementById("title").value;
+      const thumbnail = document.getElementById("thumbnail").value;
+      const description = document.getElementById("description").value;
+      const link = document.getElementById("link").value;
+      try {
+        await addDoc(collection(db, "paid-classes"), {
+          title,
+          thumbnail,
+          description,
+          link
+        });
+        alert("Class added successfully!");
+      } catch (e) {
+        alert("Error adding class: " + e.message);
+      }
+    }
+  </script>
+</body>
+</html>

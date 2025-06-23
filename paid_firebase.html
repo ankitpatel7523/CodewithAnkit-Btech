@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Paid Classes</title>
+</head>
+<body>
+  <h2>Paid Classes</h2>
+  <div id="classContainer"></div>
+
+  
+<script type="module">
+  // Import the functions you need from the SDKs
+  import {{ initializeApp }} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+  import {{ getFirestore, collection, addDoc, getDocs }} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+  import {{ getAuth, signInWithEmailAndPassword, onAuthStateChanged }} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+
+  const firebaseConfig = {{
+    apiKey: "AIzaSyC49D5FuxFq68zaFmyamB5DgfnJveivIXk",
+    authDomain: "success-with-ankit-swa.firebaseapp.com",
+    projectId: "success-with-ankit-swa",
+    storageBucket: "success-with-ankit-swa.firebasestorage.app",
+    messagingSenderId: "83676685789",
+    appId: "1:83676685789:web:5bb35ae71531dbb986c234",
+    measurementId: "G-M8YKVQP1Z3"
+  }};
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+</script>
+
+
+  <script type="module">
+    async function loadClasses() {
+      const querySnapshot = await getDocs(collection(db, "paid-classes"));
+      const container = document.getElementById("classContainer");
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.innerHTML = `
+          <h3>${data.title}</h3>
+          <img src="${data.thumbnail}" width="200" /><br/>
+          <p>${data.description}</p>
+          <a href="${data.link}" target="_blank">View</a>
+          <hr/>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    loadClasses();
+  </script>
+</body>
+</html>

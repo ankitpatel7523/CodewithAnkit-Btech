@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin - Previous Year</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+    h1 { color: #0d47a1; }
+    form { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ccc; max-width: 600px; margin: auto; }
+    input, textarea { width: 100%; margin: 10px 0; padding: 10px; }
+    button { background: #0d47a1; color: white; padding: 10px 20px; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Admin Panel - Add to Previous Year</h1>
+  <form onsubmit="addItem(event)">
+    <input type="text" id="title" placeholder="Title" required />
+    <input type="text" id="thumbnail" placeholder="Thumbnail URL" required />
+    <textarea id="description" placeholder="Description" required></textarea>
+    <input type="text" id="link" placeholder="Link (Video/PDF/Buy)" required />
+    <button type="submit">Add</button>
+  </form>
+
+  <script>
+    function addItem(e) {
+      e.preventDefault();
+      const item = {
+        title: document.getElementById('title').value,
+        thumbnail: document.getElementById('thumbnail').value,
+        description: document.getElementById('description').value,
+        link: document.getElementById('link').value
+      };
+      const key = 'previous';
+      const items = JSON.parse(localStorage.getItem(key) || '[]');
+      items.push(item);
+      localStorage.setItem(key, JSON.stringify(items));
+      alert("Added successfully!");
+      document.querySelector("form").reset();
+    }
+  </script>
+</body>
+</html>

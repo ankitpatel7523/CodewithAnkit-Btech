@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel - Add Paid Batch</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+    h1 { color: #0d47a1; }
+    form { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ccc; max-width: 600px; margin: auto; }
+    input, textarea { width: 100%; margin: 10px 0; padding: 10px; }
+    button { background: #0d47a1; color: white; padding: 10px 20px; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Admin Panel - Add New Paid Batch</h1>
+  <form onsubmit="addBatch(event)">
+    <input type="text" id="title" placeholder="Batch Title" required />
+    <input type="text" id="thumbnail" placeholder="Thumbnail URL" required />
+    <textarea id="description" placeholder="Batch Description" required></textarea>
+    <input type="text" id="link" placeholder="Buy/Watch Link" required />
+    <button type="submit">Add Batch</button>
+  </form>
+
+  <script>
+    function addBatch(e) {
+      e.preventDefault();
+      const batch = {
+        title: document.getElementById('title').value,
+        thumbnail: document.getElementById('thumbnail').value,
+        description: document.getElementById('description').value,
+        link: document.getElementById('link').value
+      };
+      const batches = JSON.parse(localStorage.getItem('batches') || '[]');
+      batches.push(batch);
+      localStorage.setItem('batches', JSON.stringify(batches));
+      alert("Batch added successfully!");
+      document.querySelector("form").reset();
+    }
+  </script>
+</body>
+</html>

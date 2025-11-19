@@ -3,25 +3,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Paid Classes</title>
+  <title>Paid Batches</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
     h1 { color: #0d47a1; text-align: center; }
-    .item-container { max-width: 1000px; margin: auto; }
-    .item-card {
+    .batch-container { max-width: 1000px; margin: auto; }
+    .batch-card {
       background: white;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px #ccc;
       margin-bottom: 20px;
     }
-    .item-card img {
+    .batch-card img {
       width: 100%;
       border-radius: 10px;
     }
-    .item-card h3 { margin-top: 10px; color: #0d47a1; }
-    .item-card p { margin: 10px 0; }
-    .item-card a {
+    .batch-card h3 { margin-top: 10px; color: #0d47a1; }
+    .batch-card p { margin: 10px 0; }
+    .batch-card a {
       display: inline-block;
       padding: 10px 20px;
       background: #0d47a1;
@@ -32,23 +32,23 @@
   </style>
 </head>
 <body>
-  <h1>Paid Classes</h1>
-  <div class="item-container" id="itemList"></div>
+  <h1>📚 Available Paid Batches</h1>
+  <div class="batch-container" id="batchList"></div>
 
   <script>
-    const items = JSON.parse(localStorage.getItem('paid') || '[]');
-    const container = document.getElementById('itemList');
-    if (items.length === 0) {
-      container.innerHTML = "<p>No items available.</p>";
+    const batches = JSON.parse(localStorage.getItem('batches') || '[]');
+    const container = document.getElementById('batchList');
+    if (batches.length === 0) {
+      container.innerHTML = "<p>No batches available.</p>";
     } else {
-      items.forEach(item => {
+      batches.forEach(b => {
         const div = document.createElement('div');
-        div.className = "item-card";
+        div.className = "batch-card";
         div.innerHTML = `
-          <img src="${item.thumbnail}" alt="Thumbnail" />
-          <h3>${item.title}</h3>
-          <p>${item.description}</p>
-          <a href="${item.link}" target="_blank">View</a>
+          <img src="${b.thumbnail}" alt="Thumbnail" />
+          <h3>${b.title}</h3>
+          <p>${b.description}</p>
+          <a href="${b.link}" target="_blank">Buy Now</a>
         `;
         container.appendChild(div);
       });

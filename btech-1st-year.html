@@ -1,19 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <title>B.Tech 1st Year Notes</title>
 <style>
-body{font-family:Arial;background:#f5f5f5;padding:20px}
-.box{background:#fff;padding:15px;margin:10px 0;border-radius:6px;box-shadow:0 0 5px rgba(0,0,0,0.1)}
-button{padding:6px 12px;border:none;border-radius:4px;cursor:pointer}
+body{font-family:Arial;background:#f0f0f0;margin:0;padding:20px}
+h1{margin-bottom:30px}
+.row{background:white;padding:15px;border-radius:8px;
+box-shadow:0 4px 15px rgba(0,0,0,.1);margin:10px 0;
+display:flex;justify-content:space-between;align-items:center}
+.btn{background:#2196f3;color:white;padding:10px 15px;
+border-radius:6px;text-decoration:none}
 </style>
 </head>
 <body>
-<h2>B.Tech 1st Year Notes</h2>
-<div class="box">Physics <button>Download PDF</button></div>
-<div class="box">Chemistry <button>Download PDF</button></div>
-<div class="box">Mathematics <button>Download PDF</button></div>
-<div class="box">Basic Electrical <button>Download PDF</button></div>
-<div class="box">Basic Electronics <button>Download PDF</button></div>
+<h1>B.Tech 1st Year Notes</h1>
+
+<div class="row">
+  <span>Physics</span>
+  <a class="btn" href="pdf-viewer.html?file=pdfs/1st/physics.pdf">Download PDF</a>
+</div>
+
+<div class="row">
+  <span>Chemistry</span>
+  <a class="btn" href="pdf-viewer.html?file=pdfs/1st/chemistry.pdf">Download PDF</a>
+</div>
+
+<div class="row">
+  <span>Mathematics</span>
+  <a class="btn" href="pdf-viewer.html?file=pdfs/1st/mathematics.pdf">Download PDF</a>
+</div>
+
+<div class="row">
+  <span>Basic Electrical</span>
+  <a class="btn" href="pdf-viewer.html?file=pdfs/1st/basic-electrical.pdf">Download PDF</a>
+</div>
+
+<div class="row">
+  <span>Basic Electronics</span>
+  <a class="btn" href="pdf-viewer.html?file=pdfs/1st/basic-electronics.pdf">Download PDF</a>
+</div>
+
 </body>
 </html>

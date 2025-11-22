@@ -29,9 +29,9 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.23.0/firebas
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
 import firebaseConfig from './firebase-config.js';
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {'size':'invisible'}, auth);
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+window.recaptchaVerifier=new RecaptchaVerifier('recaptcha-container',{'size':'invisible'},auth);
 
 const msg=document.getElementById("msg");
 document.getElementById("sendotp").onclick=async()=>{
@@ -42,7 +42,7 @@ document.getElementById("sendotp").onclick=async()=>{
   if(!name||!col||!email||!phone){msg.innerText="Fill all fields";return;}
   msg.innerText="Sending OTP...";
   try{
-    const r=await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+    const r=await signInWithPhoneNumber(auth,phone,window.recaptchaVerifier);
     window.cr=r;
     msg.innerText="OTP Sent!";
     document.getElementById("otpBox").style.display="block";
@@ -54,12 +54,14 @@ document.getElementById("verify").onclick=async()=>{
   let name=document.getElementById("name").value.trim();
   let col=document.getElementById("college").value.trim();
   let email=document.getElementById("email").value.trim();
+
   try{
     const res=await window.cr.confirm(otp);
     msg.innerText="Logged In!";
-    // notify admin
+    // notify admin cloud function
     fetch("https://<YOUR_REGION>-<YOUR_PROJECT>.cloudfunctions.net/api/sendUserNotification",{
-      method:"POST",headers:{"Content-Type":"application/json"},
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
       body:JSON.stringify({name,college:col,email,phone:res.user.phoneNumber})
     });
     setTimeout(()=>location.href="index.html",1000);

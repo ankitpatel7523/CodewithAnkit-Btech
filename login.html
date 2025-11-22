@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Login / Register</title>
 
-<!-- Your reCAPTCHA SITE KEY -->
 <script src="https://www.google.com/recaptcha/api.js?render=6Lff3hQsAAAAAMWlm9vCL4kZLmhIs-TE7slxVHxi"></script>
 
 <style>
@@ -24,7 +23,6 @@ button{
 button:disabled{background:#999;cursor:not-allowed}
 #recaptcha-container{margin-top:10px;display:none;}
 </style>
-
 </head>
 <body>
 
@@ -45,13 +43,10 @@ button:disabled{background:#999;cursor:not-allowed}
 
 <p id="msg"></p>
 
-<!-- recaptcha placeholder -->
 <div id="recaptcha-container"></div>
 
 </div>
 
-
-<!-- Firebase Compat SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
@@ -61,9 +56,6 @@ import firebaseConfig from "./firebase-config.js";
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-// ---------------------------
-// reCAPTCHA + TOKEN GENERATION
-// ---------------------------
 let recaptchaVerifier;
 
 grecaptcha.ready(() => {
@@ -78,9 +70,6 @@ grecaptcha.ready(() => {
 
 const msg = document.getElementById("msg");
 
-// ---------------------------
-// SEND OTP
-// ---------------------------
 document.getElementById("sendotp").onclick = () => {
 
   let name = document.getElementById("name").value.trim();
@@ -106,10 +95,6 @@ document.getElementById("sendotp").onclick = () => {
     });
 };
 
-
-// ---------------------------
-// VERIFY OTP
-// ---------------------------
 document.getElementById("verify").onclick = () => {
   let otp = document.getElementById("otp").value;
 
@@ -122,7 +107,6 @@ document.getElementById("verify").onclick = () => {
       msg.innerHTML = "❌ Invalid OTP";
     });
 };
-
 </script>
 
 </body>

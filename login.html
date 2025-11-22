@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Login / Register</title>
 
 <style>
@@ -12,17 +12,17 @@ body{font-family:Arial;background:#f5f5f5;padding:20px}
   border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.1)
 }
 input,button{
-  width:100%;margin:8px 0;padding:10px;
-  border-radius:6px;border:1px solid #ccc;font-size:16px
+  width:100%;margin:8px 0;padding:12px;
+  border-radius:6px;border:1px solid #ccc;font-size:16px;
 }
 button{
-  background:#007bff;color:white;border:none;cursor:pointer
+  background:#007bff;color:#fff;border:none;cursor:pointer;font-weight:bold
 }
 button:disabled{background:#999;cursor:not-allowed}
 #recaptcha-container{margin-top:10px;}
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="card">
@@ -45,70 +45,75 @@ button:disabled{background:#999;cursor:not-allowed}
 <p id="msg"></p>
 </div>
 
+
+<!-- Firebase Compat SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<!-- Firebase Config File -->
+<script type="module" src="./firebase-config.js"></script>
+
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber }
-from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
 import firebaseConfig from "./firebase-config.js";
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-// ---------------------------
-// Fix Recaptcha for Firebase v9
-// ---------------------------
-window.recaptchaVerifier = new RecaptchaVerifier(
-  auth,
-  "recaptcha-container",
-  {
-    size: "invisible"
-  }
-);
+let recaptcha = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+  size: "invisible"
+});
+recaptcha.render();
 
-// ---------------------------
-// Send OTP
-// ---------------------------
+const sendBtn = document.getElementById("sendotp");
+const verifyBtn = document.getElementById("verify");
 const msg = document.getElementById("msg");
-document.getElementById("sendotp").onclick = async () => {
-  let name = document.getElementById("name").value.trim();
-  let col  = document.getElementById("college").value.trim();
-  let email= document.getElementById("email").value.trim();
-  let phone= document.getElementById("phone").value.trim();
 
-  if(!name || !col || !email || !phone){
-    msg.innerHTML = "⚠ Fill all fields";
+// -----------------------
+// SEND OTP
+// -----------------------
+sendBtn.onclick = () => {
+
+  let name = name.value.trim();
+  let college = college.value.trim();
+  let email = email.value.trim();
+  let phone = phone.value.trim();
+
+  if(!name || !college || !email || !phone){
+    msg.innerHTML = "⚠ Please fill all fields!";
     return;
   }
 
   msg.innerHTML = "⏳ Sending OTP...";
 
-  try {
-    const confirmation = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
-    window.confirmationResult = confirmation;
-
-    msg.innerHTML = "✔ OTP Sent!";
-    document.getElementById("otpBox").style.display = "block";
-  } catch (e) {
-    msg.innerHTML = "❌ " + e.message;
-  }
+  auth.signInWithPhoneNumber(phone, recaptcha)
+    .then((result) => {
+      window.confirmationResult = result;
+      msg.innerHTML = "✔ OTP Sent!";
+      document.getElementById("otpBox").style.display = "block";
+    })
+    .catch((error) => {
+      msg.innerHTML = "❌ " + error.message;
+    });
 };
 
-// ---------------------------
-// Verify OTP
-// ---------------------------
-document.getElementById("verify").onclick = async () => {
-  let otp = document.getElementById("otp").value.trim();
 
-  try {
-    await window.confirmationResult.confirm(otp);
+// -----------------------
+// VERIFY OTP
+// -----------------------
+verifyBtn.onclick = () => {
+  let otp = document.getElementById("otp").value;
 
-    msg.innerHTML = "🎉 Login Successful!";
-    setTimeout(() => location.href = "index.html", 1500);
-
-  } catch (e) {
-    msg.innerHTML = "❌ Invalid OTP";
-  }
+  confirmationResult.confirm(otp)
+    .then((res) => {
+      msg.innerHTML = "🎉 Login Success! Redirecting...";
+      setTimeout(() => location.href = "index.html", 1500);
+    })
+    .catch(() => {
+      msg.innerHTML = "❌ Invalid OTP";
+    });
 };
+
 </script>
 
 </body>
